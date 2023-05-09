@@ -10,23 +10,23 @@ services:
       #- PAGID=10000
       #- PGID=1000
       #- PUID=1000
-      - QBT_EULA=${QBT_EULA}
-      - QBT_VERSION=${QBT_VERSION}
-      - QBT_WEBUI_PORT=${QBT_WEBUI_PORT}
+      - QBT_EULA=accept
+      - QBT_VERSION=latest
+      - QBT_WEBUI_PORT=8080
       #- TZ=UTC
       #- UMASK=022
-    image: qbittorrentofficial/qbittorrent-nox:${QBT_VERSION}
+    image: qbittorrentofficial/qbittorrent-nox:latest
     ports:
       # for bittorrent traffic
       - 6881:6881/tcp
       - 6881:6881/udp
       # for WebUI
-      - ${QBT_WEBUI_PORT}:${QBT_WEBUI_PORT}/tcp
+      - 8080:8080/tcp
     read_only: true
     stop_grace_period: 30m
     tmpfs:
       - /tmp
     tty: true
     volumes:
-      - ${QBT_CONFIG_PATH}:/config
-      - ${QBT_DOWNLOADS_PATH}:/downloads
+      - /home/qbtuser/docker-qbittorrent-nox/config:/config
+      - /mnt/gstf-ng-video/torrent:/downloads
